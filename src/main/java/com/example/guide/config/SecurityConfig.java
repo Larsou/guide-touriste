@@ -60,6 +60,21 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT,    "/api/places/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/places/**").authenticated()
 
+                        // **add these two lines** to open GET reservation:
+                        .requestMatchers(HttpMethod.GET, "/api/reservations", "/api/reservations/**").permitAll()
+
+                        .requestMatchers(HttpMethod.POST,   "/api/reservations/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT,    "/api/reservations/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/reservations/**").authenticated()
+
+                        .requestMatchers(HttpMethod.GET, "/places/*/reviews").permitAll()
+
+                        .requestMatchers(HttpMethod.POST,   "/places/*/reviews").authenticated()
+                        .requestMatchers(HttpMethod.PUT,    "/api/reviews/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/reviews/**").authenticated()
+
+                        .requestMatchers(HttpMethod.GET,    "/api/reviews").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/reviews/*/admin").hasRole("ADMIN")
 
 
                         // Toutes les autres requêtes nécessitent authentification
